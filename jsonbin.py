@@ -20,7 +20,7 @@ class JsonBin(object):
         return res[:leng]
     def _save(self):
         with open(self.dbfile, "w") as f:
-            f.write(self.db)
+            f.write(json.dumps(self.db))
     
     def store(self, token, key, data):
         if not token in self.db:
@@ -32,6 +32,7 @@ class JsonBin(object):
             self.db[token][key].update(data)
         
         self._save()
+        return True
     
     def retrieve(self, token, key):
         return self.db.get(token, {}).get(key, None)
